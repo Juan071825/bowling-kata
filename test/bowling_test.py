@@ -1,5 +1,5 @@
 import pytest
-from src.score_counter import score_counter
+from src.score_counter import frame_dict_creator
 
 @pytest.mark.parametrize(
     "pins_knocked, total_score",
@@ -21,4 +21,4 @@ from src.score_counter import score_counter
     ]
 )
 def test_score(pins_knocked, total_score):
-    assert score_counter(pins_knocked) == total_score
+    assert frame_dict_creator(pins_knocked) == total_score
