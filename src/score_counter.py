@@ -1,4 +1,4 @@
-from constants import STRIKE, OPEN_FRAME, FRAMES_KEYS, FRAMES_KEYS_UNTIL_NINE, FIRST_BOWLING, SECOND_BOWLING, THIRD_BOWLING, ONE_BOWLING, TWO_BOWLINGS, THREE_BOWLINGS, SPARE, BOWLING_VALUES_DICT
+from constants import STRIKE, OPEN_FRAME, FRAMES_KEYS, FRAMES_KEYS_UNTIL_NINE, FIRST_BOWLING, SECOND_BOWLING, THIRD_BOWLING, ONE_BOWLING, TWO_BOWLINGS, THREE_BOWLINGS, SPARE, BOWLING_VALUES_DICT, NINTH_FRAME
 
 def frame_dict_creator(pins_knocked):
     
@@ -25,7 +25,7 @@ def frame_dict_creator(pins_knocked):
             frames_count += 1
     
         # Los lanzamientgos del strike 10 son los que quedan.
-        if frames_count == 9:
+        if frames_count == NINTH_FRAME:
             last_frame_bowlings = pins_knocked[bowling_count:]
 
             pins_knocked_per_frame.append(tuple(last_frame_bowlings)) # tuple() crea la tupla separando los caracteres del string.
