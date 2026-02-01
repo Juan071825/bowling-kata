@@ -35,48 +35,70 @@ def frame_dict_creator(pins_knocked):
 
 
 def score_counter(frames_dict):
+    
     score_counter = 0
-
-    dict_values = {'-':0, '1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'X':10, '/':10}
-
-    for frame_number, frame_tries in frames_dict.items():
-          if frame_number in (1,2,3,4,5,6,7,8,9):
+    bowling_values_dict = {'-':0, '1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'X':10, '/':10}
+    FRAMES_KEYS = (1,2,3,4,5,6,7,8,9,10)
+    FRAMES_KEYS_UNTIL_NINE = FRAMES_KEYS[:-1]
+    STRIKE = "X"
+    FIRST_BOWLING = 0
+    SECOND_BOWLING = 1
+    THIRD_BOWLING = 2
+    ONE_BOWLING = 1
+    TWO_BOWLINGS = 2
+    THREE_BOWLINGS = 3
+    SPARE = '/'
+    OPEN_FRAME = "123456789-"
+    
+    for frame_key, frame_bowlings in frames_dict.items():
+          
+          if frame_key in FRAMES_KEYS_UNTIL_NINE:
                 
-                if frame_tries[0] == 'X':
-                      score_counter += dict_values[frame_tries[0]]
-                      if len(frames_dict[frame_number + 1]) == 2:
-                            if frames_dict[frame_number + 1][1] == '/':
-                                  score_counter += dict_values[frames_dict[frame_number + 1][1]]
-                            else:
-                                score_counter += dict_values[frames_dict[frame_number + 1][0]] + dict_values[frames_dict[frame_number + 1][1]]
+               
+                next_frame = frames_dict[frame_key + 1]
+                number_bowlings_next_frame = len(frames_dict[frame_key + 1])
+                
+                if frame_bowlings[FIRST_BOWLING] == STRIKE:
+                    
+                    first_frame_bowling_value = bowling_values_dict[frame_bowlings[FIRST_BOWLING]]
+                    score_counter += first_frame_bowling_value
 
-                      elif len(frames_dict[frame_number + 1]) == 1:
-                            score_counter += dict_values[frames_dict[frame_number + 1][0]] + dict_values[frames_dict[frame_number + 2][0]]
-                      elif len(frames_dict[frame_number + 1]) == 3:
-                            score_counter += dict_values[frames_dict[frame_number + 1][0]] + dict_values[frames_dict[frame_number + 1][1]]
+                    if number_bowlings_next_frame == ONE_BOWLING:
+                            bowlings_next_next_frame = frames_dict[frame_key + 2]
+                            score_counter += bowling_values_dict[next_frame[FIRST_BOWLING]] + bowling_values_dict[bowlings_next_next_frame[FIRST_BOWLING]]        
+
+                    elif number_bowlings_next_frame == TWO_BOWLINGS:
+
+                        if next_frame[SECOND_BOWLING] == SPARE:
+                              score_counter += bowling_values_dict[next_frame[SECOND_BOWLING]]
+                        else:
+                              score_counter += bowling_values_dict[next_frame[FIRST_BOWLING]] + bowling_values_dict[next_frame[SECOND_BOWLING]]
+
+                    elif number_bowlings_next_frame == THREE_BOWLINGS:
+                            score_counter += bowling_values_dict[next_frame[FIRST_BOWLING]] + bowling_values_dict[next_frame[SECOND_BOWLING]]
                 
-                elif frame_tries[1] == '/':
-                      score_counter += dict_values[frame_tries[1]] + dict_values[frames_dict[frame_number + 1][0]]
+                elif frame_bowlings[SECOND_BOWLING] == SPARE:
+                      score_counter += bowling_values_dict[frame_bowlings[SECOND_BOWLING]] + bowling_values_dict[next_frame[FIRST_BOWLING]]
                 
-                elif frame_tries[0] in ('123456789-'):
-                      score_counter += dict_values[frame_tries[0]] + dict_values[frame_tries[1]]
+                elif frame_bowlings[FIRST_BOWLING] in OPEN_FRAME:
+                      score_counter += bowling_values_dict[frame_bowlings[FIRST_BOWLING]] + bowling_values_dict[frame_bowlings[SECOND_BOWLING]]
 
           
           else:
-                if frame_tries[0] == 'X':
-                      score_counter += dict_values[frame_tries[0]]
-                      if frames_dict[frame_number][2] == '/':
-                            score_counter += dict_values[frames_dict[frame_number][2]]
+                if frame_bowlings[FIRST_BOWLING] == STRIKE:
+                      score_counter += bowling_values_dict[frame_bowlings[FIRST_BOWLING]]
+                      if frame_bowlings[THIRD_BOWLING] == SPARE:
+                            score_counter += bowling_values_dict[frame_bowlings[THIRD_BOWLING]]
                       else:
-                            score_counter += dict_values[frames_dict[frame_number][1]] + dict_values[frames_dict[frame_number][2]]
+                            score_counter += bowling_values_dict[frame_bowlings[SECOND_BOWLING]] + bowling_values_dict[frame_bowlings[THIRD_BOWLING]]
 
                 
-                elif frame_tries[1] == '/':
-                      score_counter += dict_values[frame_tries[1]] + dict_values[frame_tries[2]]
+                elif frame_bowlings[SECOND_BOWLING] == SPARE:
+                      score_counter += bowling_values_dict[frame_bowlings[SECOND_BOWLING]] + bowling_values_dict[frame_bowlings[THIRD_BOWLING]]
 
                       
-                elif frame_tries[0] in ('123456789-'):
-                      score_counter += dict_values[frame_tries[0]] + dict_values[frame_tries[1]]
+                elif frame_bowlings[FIRST_BOWLING] in OPEN_FRAME:
+                      score_counter += bowling_values_dict[frame_bowlings[FIRST_BOWLING]] + bowling_values_dict[frame_bowlings[SECOND_BOWLING]]
     
     
     
