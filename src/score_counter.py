@@ -1,27 +1,36 @@
 def frame_dict_creator(pins_knocked):
     
-    tries_bowling = 0
+    bowling_count = 0
     frames_count = 0
-    pins_knocked_list = []
-    while tries_bowling < len(pins_knocked):
+    pins_knocked_per_frame = []
+    FRAMES_KEYS = (1,2,3,4,5,6,7,8,9,10)
+    OPEN_FRAME = "123456789-"
+    STRIKE = "X"
+
+    while bowling_count < len(pins_knocked):
+        
+        current_bowling = pins_knocked[bowling_count]
+        next_bowling = pins_knocked[bowling_count + 1]
 
         # STRIKE
-        if pins_knocked[tries_bowling] == "X":
-                pins_knocked_list.append(tuple(pins_knocked[tries_bowling]))
-                tries_bowling += 1
-                frames_count += 1
+        if pins_knocked[bowling_count] == STRIKE:
+            pins_knocked_per_frame.append(tuple(current_bowling))
+            bowling_count += 1
+            frames_count += 1
 
         # OPEN FRAME O SPARE
-        elif pins_knocked[tries_bowling] in "123456789-":
-                pins_knocked_list.append((pins_knocked[tries_bowling], pins_knocked[tries_bowling + 1]))
-                tries_bowling += 2
-                frames_count += 1
+        elif pins_knocked[bowling_count] in OPEN_FRAME:
+            pins_knocked_per_frame.append((current_bowling, next_bowling))
+            bowling_count += 2
+            frames_count += 1
     
         # Los lanzamientgos del strike 10 son los que quedan.
         if frames_count == 9:
-                pins_knocked_list.append(tuple(pins_knocked[tries_bowling:])) # tuple() crea la tupla separando los caracteres del string.
-                pins_knocked_dict = dict(zip((1,2,3,4,5,6,7,8,9,10), pins_knocked_list))
-                return pins_knocked_dict
+            last_frame_bowlings = pins_knocked[bowling_count:]
+
+            pins_knocked_per_frame.append(tuple(last_frame_bowlings)) # tuple() crea la tupla separando los caracteres del string.
+            frames_dict = dict(zip(FRAMES_KEYS, pins_knocked_per_frame))
+            return frames_dict
 
 
 
