@@ -1,4 +1,4 @@
-from constants import (
+from src.constants import (
     STRIKE, OPEN_FRAME, FRAMES_KEYS, FRAMES_KEYS_UNTIL_NINE,
     FIRST_BOWLING, SECOND_BOWLING, THIRD_BOWLING,
     ONE_BOWLING, TWO_BOWLINGS, THREE_BOWLINGS,
@@ -113,25 +113,3 @@ class ScoreCard:
         return score_counter
     
 
-
-if __name__ == '__main__':
-
-    assert ScoreCard('XXXXXXXXXXXX').score() == 300
-    assert ScoreCard('1/2/3/4/5/6/7/8/9/1/5').score() == 150
-    assert ScoreCard('--------------------').score() == 0
-    assert ScoreCard('12121212121212121212').score() == 30
-    assert ScoreCard('XXX-----------------').score() == 60
-    assert ScoreCard('----------------XXXX').score() == 60
-    assert ScoreCard('12345123451234512345').score() == 60
-    assert ScoreCard('9-9-9-9-9-9-9-9-9-9-').score() == 90
-    assert ScoreCard('9-3561368153258-7181').score() == 82
-    assert ScoreCard('9-3/613/815/-/8-7/8-').score() == 121
-    assert ScoreCard('X9-9-9-9-9-9-9-9-9-').score() == 100
-    assert ScoreCard('X9-X9-9-9-9-9-9-9-').score() == 110
-    assert ScoreCard('XX9-9-9-9-9-9-9-9-').score() == 120
-    assert ScoreCard('XXX9-9-9-9-9-9-9-').score() == 141
-    assert ScoreCard('9-3/613/815/-/8-7/8/8').score() == 131
-    assert ScoreCard('5/5/5/5/5/5/5/5/5/5/5').score() == 150
-    assert ScoreCard('9-9-9-9-9-9-9-9-9-XXX').score() == 111
-    assert ScoreCard('8/549-XX5/53639/9/X').score() == 149
-    assert ScoreCard('X5/X5/XX5/--5/X5/').score() == 175
