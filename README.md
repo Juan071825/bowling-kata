@@ -3,10 +3,11 @@
 <li>Introducción</li>
 <li>Manual</li>
 <li>Descripción Técnica</li>
-<li>Diseño</li>
+<li>Hiatorias de Usuario</li>
+<li>Diagrama de Componentes</li>
 <li>Implementación</li>
 <li>Pruebas</li>
-<li>Estudio de tiempo invertido</li>
+<li>Estudio de Tiempo Invertido</li>
 <li>Uso de IA</li>
 <li>Conclusión</li>
 </ul>
@@ -35,16 +36,27 @@ git clone &lt;URL&gt;.</li>
 <li>Crea el entorno del proyecto con uv venv y activalo con source .venv/bin/activate</li>
 
 <li>Ejecuta en terminal uv sync para instalar las dependencias necesarias del proyecto.</li> 
-
-<li>Por último para ejecutar el proyecto utiliza uv run python &lt;nombre módulo&gt;, que puede ser score_counter.py para la versión que no utiliza <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos">POO</a> o scoreCard para la que si la utiliza.</li>
 </ol>
 
+## Uso
+<p>Por último para ejecutar el proyecto utiliza uv run python &lt;nombre módulo&gt;, que puede ser score_counter.py para la versión que no utiliza <a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos">POO</a> o scoreCard para la que si la utiliza.</p>
 
 
+# Metodología
+Utilicé la <a href="https://es.wikipedia.org/wiki/Desarrollo_guiado_por_pruebas">TDD</a> como metodología, cogí los casos test de este <a href="https://github.com/dfleta/bowling-game-kata-automata"> repositorio</a>. Primero me centré en pasar los casos test más sencillos y que no tenían ningún caso especial  que se pudiera dar en una partida de bolos, una vez pasados estos casos báscicos fui a cubrir las situaciones excepcionales una a una.
 
 
+## Historias de usuario
+La lógica del programa consta de 2 funciones: 
 
+<ul>
+<li>frame_dict_creator: recibe todos los rolls en un strings sin que estos estén divididos por frames y su papel es meter estas rolls en un diccionario donde cada llave representa un frame y su valor asociado es una tupla que contiene los resultados de las rolls de ese frame.</li>
+<li>score_counter: recibe el diccionario creado por frame_dict_creator y es quien se encarga de calcular la puntuación total de la tarjeta.</li>
+</ul>
 
+## Diagrama de componentes
+
+El diagrama es simple, los módulos score_counter.py y scoreConter.py, recordemos que son lo mismo pero con distinto paradigma, dependen del módulo constants.py para funcionar.
 
 ## Reglas de puntuación de los bolos
 
@@ -53,7 +65,7 @@ git clone &lt;URL&gt;.</li>
         Cada partida ("line") de bolos incluye 10 turnos ("frames").
     </li>
     <li>
-        Por cada "frame" el jugador ("bowler") tiene dos intentos para tirar todos los bolos.
+        Por cada "frame" el jugador ("bowler") tiene dos intentos (bowlings o rolls) para tirar todos los bolos.
     </li>
     <li>
         Si en los 2 intentos no tira todos los bolos se suma a su puntuación el número de bolos ("pins") tirado.
