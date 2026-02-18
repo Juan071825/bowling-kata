@@ -39,7 +39,7 @@ Juan Mateo Álvarez Álvarez - <a href="https://github.com/Juan071825">@Juan0718
         Si en el décimo frame el jugador hace un "spare" recibirá una tirada extra, si hace un "strike" recibirá 2. Esto se hace para poder calcular la puntuación de este turno.
     </li>
     <li>
-        LA puntuación ("score") final es la suma de la puntuación obtenida en todos los turnos.
+        La puntuación ("score") final es la suma de la puntuación obtenida en todos los turnos.
     </li>
 </ul>
 
